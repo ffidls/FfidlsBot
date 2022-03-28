@@ -5,7 +5,8 @@ import bot_functions.registration.greetings
 import bot_functions.registration.user_verification
 import bot_functions.menu
 import data.work_with_data
-import bot_functions.adviсe.adviсe
+import bot_functions.adviсe.advice_menu
+import bot_functions.adviсe.distribution_of_advice
 
 
 def check(update, context):
@@ -35,17 +36,26 @@ def main():
     dp.add_handler(CommandHandler("menu", bot_functions.menu.menu))
 
 
-    conv_handler = ConversationHandler(
+    # регистрация
+    greetings_dialog = ConversationHandler(
         entry_points=[CommandHandler('start_dating',  bot_functions.registration.greetings.greetings)],
-
         states={
             1: [MessageHandler(Filters.text, bot_functions.registration.user_verification.check)],  # регистрация и проверка
         },
-
         fallbacks=[CommandHandler('menu', bot_functions.menu.menu)])
-    dp.add_handler(conv_handler)
+    dp.add_handler(greetings_dialog)
 
-    dp.add_handler(CommandHandler("advice", bot_functions.adviсe.adviсe.main))
+
+    #advice
+    advice_dialog = ConversationHandler(
+        entry_points=[CommandHandler('advice', bot_functions.adviсe.advice_menu.menu_advice)],
+        states={
+            1: [MessageHandler(Filters.text, bot_functions.adviсe.distribution_of_advice.distribution_of_advice)],
+            # советы
+        },
+        fallbacks=[CommandHandler('back', bot_functions.menu.menu)])
+    dp.add_handler(advice_dialog)
+
 
     updater.start_polling()
 
