@@ -7,7 +7,7 @@ class work_with_data:
         # f = open("registered_user", 'w')
         pass
 
-    def make_dck_fail(self):
+    def make_dck_fail(self): #???????
         # создание словаря из данных
         fail = open("data/data_bd", encoding='UTF-8')
         data_dc = {}
@@ -28,18 +28,19 @@ class work_with_data:
                 return True
         return False
 
-    def check_nickname(self, check_nickname):
+    def check_id(self, check_id):
         # проверка на прошлый контакт с пользователем
         fail = open("data/registered_user", encoding='UTF-8')
-        for nickname in fail:
-            if '\n' in nickname:
-                nickname = nickname[:len(nickname) - 1]
-            if nickname == check_nickname:
-                return True
-        return False
+        for str in fail:
+            id, name = str.split('@')[0], str.split('@')[1]
+            if '\n' in name:
+                name = name[:len(id) - 1]
+            if int(id) == check_id:
+                return True, name
+        return False, None
 
-    def add_user(self, name_user):
+    def add_user(self, id_user, name_user):
         # добавление ников зарегистрированных пользователей
         f = open("data/registered_user", 'a')
-        print(name_user, file=f)
+        print(f"{id_user}@{name_user}", file=f)
         f.close()

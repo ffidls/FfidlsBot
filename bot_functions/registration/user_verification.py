@@ -12,10 +12,8 @@ def check(update, context):
         check_user = work_with_data.check_user(user, password)
 
         if check_user:
-            new_user = update.message.from_user.username
-            if str(new_user) == 'None':
-                new_user = update.message.chat.first_name
-            work_with_data.add_user(new_user)
+            new_user_id = update.message.from_user.id
+            work_with_data.add_user(new_user_id, user)
 
             markup = ReplyKeyboardMarkup([['/menu']], one_time_keyboard=False)
             update.message.reply_text(
