@@ -1,13 +1,28 @@
+import sqlite3
+# import bot_functions.taskt.check_task
+
+
 class work_with_data:
     def __init__(self):
+        # self.vk = bot_functions.taskt.check_task.check_vk()
+        pass
+
+    def add_results(self):
         pass
 
     def bd(self):
         # заполнение файла data_bd из общей бд
-        # f = open("registered_user", 'w')
-        pass
+        f = open("data_bd", 'w')
+        con = sqlite3.connect('data/bd/life_of_party(1).sqlite')
+        cur = con.cursor()
+        names = cur.execute("""SELECT * FROM name""").fetchall()
+        passwords = cur.execute("""SELECT * FROM hashed_password""").fetchall()
+        for i in range(len(names)):
+            print(f'{names[i]}@{passwords[i]}', file=f)
+        f.close()
+        con.close()
 
-    def make_dck_fail(self): #???????
+    def make_dck_fail(self): # ??????? смысл его существования
         # создание словаря из данных
         fail = open("data/data_bd", encoding='UTF-8')
         data_dc = {}
@@ -34,9 +49,11 @@ class work_with_data:
         for str in fail:
             id, name = str.split('@')[0], str.split('@')[1]
             if '\n' in name:
-                name = name[:len(id) - 1]
+                name = name[:len(name) - 1]
             if int(id) == check_id:
-                return True, name
+                if '!' in name:
+                    return True, name, True
+                return True, name, False
         return False, None
 
     def add_user(self, id_user, name_user):
@@ -44,3 +61,13 @@ class work_with_data:
         f = open("data/registered_user", 'a')
         print(f"{id_user}@{name_user}", file=f)
         f.close()
+
+    def add_inf_for_task(self, id_user, name_user, inf_vk):
+        '''# добавление информации зарегистрированных пользователей для заданий
+        id_vk, psw, number = inf_vk[0], inf_vk[1], inf_vk[2]
+        friends = self.vk.Friends(id_vk, psw, number)
+        photo = self.vk.Photos(id_vk, psw, number)
+        f = open("bot_functions/taskt/task_txt" 'a')
+        print(f"{id_user}@{name_user}@1@n@{friends}@{photo}", file=f)  # f"{id_user}@{name_user}@номер задания@в какой стадии выполнения@друзья в вк@фото"
+        f.close()'''
+        pass
