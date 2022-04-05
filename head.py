@@ -12,8 +12,8 @@ import bot_functions.menu_functions_for_admin
 
 def check(update, context):
     id_user = update.message.from_user.id
-    check_id = data.work_with_data.work_with_data()
-    flg, name, admin_fl = check_id.check_id(id_user)
+    check_bd = data.work_with_data.check_data_from_bd()
+    flg, name, admin_fl = check_bd.check_id(id_user)
 
     if flg:
         if admin_fl:

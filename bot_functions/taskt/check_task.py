@@ -1,4 +1,4 @@
-'''
+"""
 import vk_api
 
 
@@ -44,4 +44,4 @@ class check_vk:
         response = vk.users.get(user_id=id, fields='counters')
         return response[0]['counters']['photos']
 
-'''
+"""
