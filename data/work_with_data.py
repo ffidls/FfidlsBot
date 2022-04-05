@@ -18,15 +18,14 @@ class work_with_data_take:
         f.close()
         con.close()
 
-    def make_dck_fail(self): # ??????? смысл его существования
+    def make_dck_fail(self, id):
         # создание словаря из данных
-        fail = open("data/data_bd", encoding='UTF-8')
-        data_dc = {}
-        data_dc.keys()
+        fail = open("data/inf_tsk", encoding='UTF-8')
         for data in fail:
-            user, password, password_word = data.split('@')[0], data.split('@')[1], data.split('@')[2]
-            data_dc[user] = [password_word, password_word]
-        return data_dc
+            if data.split('@')[4] == str(id):
+                user, numb_tsk, condition, id_bd = data.split('@')[1], data.split('@')[2], data.split('@')[3], data.split('@')[1]
+                return [user, numb_tsk, condition, id_bd]
+        return None
 
 
 class check_data_from_bd:
@@ -56,6 +55,7 @@ class check_data_from_bd:
                     if '!' in name:
                         return True, name, True
                     return True, name, False
+            return False, None, None
         except Exception:
             return False, None, None
 
@@ -70,7 +70,7 @@ class add_data_in_bd:
         print(f"{id_user}@{name_user}", file=f)
         f.close()
 
-    def add_inf_for_task(self, id_user, name_user):
-        f1 = open("data/inf_for_tasks" 'a')
-        print(f"{id_user}@{name_user}@1@n",file=f1)
+    def add_inf_for_task(self, id_user, name_user, id_tlg):
+        f1 = open("data/inf_tsk", 'a')
+        print(f"{id_user}@{name_user}@1@n@{id_tlg}",file=f1)
         f1.close()

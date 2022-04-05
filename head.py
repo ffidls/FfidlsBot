@@ -8,6 +8,7 @@ import data.work_with_data
 import bot_functions.adviсe.advice_menu
 import bot_functions.adviсe.distribution_of_advice
 import bot_functions.menu_functions_for_admin
+import bot_functions.taskt.distribution
 
 
 def check(update, context):
@@ -61,6 +62,15 @@ def main():
         },
         fallbacks=[CommandHandler('menu', bot_functions.menu_functions_for_user.menu)])
     dp.add_handler(advice_dialog)
+
+    # task
+    task_dialog = ConversationHandler(
+        entry_points=[CommandHandler('task', bot_functions.taskt.distribution.distribution)],
+        states={
+            1: [MessageHandler(Filters.text, bot_functions.taskt.distribution.distribution)],
+        },
+        fallbacks=[CommandHandler('menu', bot_functions.menu_functions_for_user.menu)])
+    dp.add_handler(task_dialog)
 
 
     updater.start_polling()

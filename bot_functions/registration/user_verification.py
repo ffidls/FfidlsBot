@@ -15,7 +15,7 @@ def check(update, context):
         if check_user:
             new_user_id = update.message.from_user.id
             add_data.add_user(new_user_id, user)
-            add_data.add_inf_for_task(id_in_bd, user)
+            add_data.add_inf_for_task(id_in_bd, user, update.message.from_user.id)
 
             markup = ReplyKeyboardMarkup([['/menu']], one_time_keyboard=False)
             update.message.reply_text(
