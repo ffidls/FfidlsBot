@@ -64,12 +64,13 @@ def main():
         fallbacks=[CommandHandler('menu', bot_functions.menu_functions_for_user.menu)])
     dp.add_handler(advice_dialog)
 
+
     # task
     task_dialog = ConversationHandler(
         entry_points=[CommandHandler('task', bot_functions.taskt.distribution.distribution)],
         states={
             1: [MessageHandler(Filters.text, bot_functions.taskt.start_task.start_task)],
-            0: [MessageHandler(Filters.text, bot_functions.taskt.distribution.distribution)],
+            2: [MessageHandler(Filters.text, bot_functions.taskt.distribution.distribution)],
         },
         fallbacks=[CommandHandler('menu', bot_functions.menu_functions_for_user.menu)])
     dp.add_handler(task_dialog)

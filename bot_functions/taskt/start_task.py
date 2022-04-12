@@ -15,6 +15,7 @@ def start_task(update, context):
 
     data_vk = data_tsk.dck_vk_user()
 
+
     if user == 'начать':
         if num_task == '1':
             # добавление нынешнего количества друзей check(id_vk) = frs
@@ -29,16 +30,16 @@ def start_task(update, context):
 
     elif user == 'завершить':
         if num_task == '1':
-            now_friends = data_vk[id_bd][4] + 2  # для 100% прохождение задания
-            if int(now_friends) - int(data_vk[id_bd][4]) == 2:
+            now_friends = int(data_vk[id_bd][3]) + 2  # для 100% прохождение задания
+            if int(now_friends) - int(data_vk[id_bd][3]) == 2:
                 markup = ReplyKeyboardMarkup([['/menu', 'дальше']])
                 update.message.reply_text(f'Поздравляю, вы успешно прошли 1 задание,'
                                           f'вы получаете 1 бал, если вы хотите продолжить выберите дальше', reply_markup=markup)
 
                 dck_user_tsk[id_tlg][3], dck_user_tsk[id_tlg][2] = 'n', int(dck_user_tsk[id_tlg][2]) + 1
-                data_vk[id_bd][4] = now_friends
+                data_vk[id_bd][3] = now_friends
                 add_inf.add_new_inf(dck_user_tsk, data_vk)
-                return 0
+                return ConversationHandler.END
             else:
                 update.message.reply_text(f'К сожалению, вы не справились с заданием, попробуйте еще раз')
                 return 1
