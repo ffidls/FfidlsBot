@@ -4,6 +4,7 @@ import data.work_with_data
 
 def distribution(update, context):
     id_tlg = update.message.from_user.id
+    id_tlg = str(id_tlg)
     data_tsk = data.work_with_data.work_with_data_take()
     dck_user = data_tsk.make_dck_fail()
     num_task, condition, id_bd = dck_user[id_tlg][2], dck_user[id_tlg][3], dck_user[id_tlg][0]
@@ -22,8 +23,11 @@ def distribution(update, context):
         update.message.reply_text(f'Как только вы будете готовы выберите в меню  "начать", если хотите '
                                   f'назад, то введите "menu"', reply_markup=markup)
         return 1
-    elif num_task == '1' and condition == 'd':
-        pass
+
+    if condition == 'd':
+        markup = ReplyKeyboardMarkup([['завершить', '/menu']], one_time_keyboard=True)
+        update.message.reply_text(f'Если вы завершили работу над первым заданием, нажмите завершить', reply_markup=markup)
+        return 1
 
 
 def get_txt_task():

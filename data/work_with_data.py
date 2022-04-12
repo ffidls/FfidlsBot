@@ -30,9 +30,9 @@ class work_with_data_take:
         dck = {}
         for data in fail:
             id_bd, user, numb_tsk, condition, id_tlg = data.split('@')[0], data.split('@')[1], data.split('@')[2], \
-                                                      data.split('@')[3], data.split('@')[4]
+                                                      data.split('@')[3], data.split('@')[4].replace("\n","")
             dck[id_tlg] = [id_bd, user, numb_tsk, condition]
-        return None
+        return dck
 
 
     def dck_vk_user(self):
@@ -40,7 +40,7 @@ class work_with_data_take:
         dck = {}
         for data in fail:
             id, name, password, photo, friends, vk = data.split('@')[0], data.split('@')[1], data.split('@')[2], \
-                                               data.split('@')[3], data.split('@')[4], data.split('@')[5]
+                                               data.split('@')[3], data.split('@')[4], data.split('@')[5].replace("\n","")
             dck[id] = [name, password, photo, friends, vk]
         return dck
 
@@ -97,11 +97,11 @@ class add_data_in_bd:
         f_data_bd = open("data/data_bd", 'w')
         f_inf_tsk = open("data/inf_tsk", 'w')
 
-        for key in dck_task.keys():
-            name, psw, ph, frd, vk = dck_task[key]
+        for key in dck_vk.keys():
+            name, psw, ph, frd, vk = dck_vk[key]
             print(f"{key}@{name}@{psw}@{ph}@{frd}@{vk}", file=f_data_bd)
-        for key2 in dck_vk:
-            id_bd, user, tsk, cond = dck_vk[key2]
+        for key2 in dck_task:
+            id_bd, user, tsk, cond = dck_task[key2]
             print(f"{id_bd}@{user}@{tsk}@{cond}@{key2}", file=f_inf_tsk)
 
         f_inf_tsk.close()
