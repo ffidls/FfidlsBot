@@ -32,7 +32,7 @@ def start_task(update, context):
         if num_task == '1':
             now_friends = int(data_vk[id_bd][3]) + 2  # для 100% прохождение задания
             if int(now_friends) - int(data_vk[id_bd][3]) == 2:
-                markup = ReplyKeyboardMarkup([['/menu', 'дальше']])
+                markup = ReplyKeyboardMarkup([['/menu', '/task']])
                 update.message.reply_text(f'Поздравляю, вы успешно прошли 1 задание,'
                                           f'вы получаете 1 бал, если вы хотите продолжить выберите дальше', reply_markup=markup)
 
@@ -41,8 +41,9 @@ def start_task(update, context):
                 add_inf.add_new_inf(dck_user_tsk, data_vk)
                 return ConversationHandler.END
             else:
-                update.message.reply_text(f'К сожалению, вы не справились с заданием, попробуйте еще раз')
-                return 1
+                markup = ReplyKeyboardMarkup([['/menu', '/task']])
+                update.message.reply_text(f'К сожалению, вы не справились с заданием, попробуйте еще раз', reply_markup=markup)
+                return ConversationHandler.END
 
 
 def vk_users(id, ):
