@@ -5,8 +5,8 @@ import data.work_with_data
 def distribution(update, context):
     id_tlg = update.message.from_user.id
     data_tsk = data.work_with_data.work_with_data_take()
-    dck_user = data_tsk.make_dck_fail(str(id_tlg))
-    num_task, condition, id_bd = dck_user[1], dck_user[2], dck_user[3]
+    dck_user = data_tsk.make_dck_fail()
+    num_task, condition, id_bd = dck_user[id_tlg][2], dck_user[id_tlg][3], dck_user[id_tlg][0]
     tsk_text = get_txt_task()
 
 

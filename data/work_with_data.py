@@ -10,22 +10,40 @@ class work_with_data_take:
         f = open("data_bd", 'w')
         con = sqlite3.connect('data/bd/life_of_party(1).sqlite')
         cur = con.cursor()
+
         names = cur.execute("""SELECT name FROM users""").fetchall()
         passwords = cur.execute("""SELECT hashed_password FROM users""").fetchall()
         id = cur.execute("""SELECT id FROM users""").fetchall()
+        photo = cur.execute("""SELECT vk_photos FROM users""").fetchall()
+        friends = cur.execute("""SELECT vk_friends FROM users""").fetchall()
+        vk = cur.execute("""SELECT vk FROM users""").fetchall()
+
         for i in range(len(names)):
-            print(f'{names[i]}@{passwords[i]}', file=f)
+            print(f'{id[i]}@{names[i]}@{passwords[i]}@{photo[i]}@{friends[i]}@{vk[i]}', file=f)
         f.close()
         con.close()
 
-    def make_dck_fail(self, id):
-        # создание словаря из данных
+
+    def make_dck_fail(self):
+        # создание словаря из данных tsk
         fail = open("data/inf_tsk", encoding='UTF-8')
+        dck = {}
         for data in fail:
-            if data.split('@')[4] == str(id):
-                user, numb_tsk, condition, id_bd = data.split('@')[1], data.split('@')[2], data.split('@')[3], data.split('@')[1]
-                return [user, numb_tsk, condition, id_bd]
+            id_bd, user, numb_tsk, condition, id_tlg = data.split('@')[0], data.split('@')[1], data.split('@')[2], \
+                                                      data.split('@')[3], data.split('@')[4]
+            dck[id_tlg] = [id_bd, user, numb_tsk, condition]
         return None
+
+
+    def dck_vk_user(self):
+        fail = open("data/data_bd", encoding='UTF-8')
+        dck = {}
+        for data in fail:
+            id, name, password, photo, friends, vk = data.split('@')[0], data.split('@')[1], data.split('@')[2], \
+                                               data.split('@')[3], data.split('@')[4], data.split('@')[5]
+            dck[id] = [name, password, photo, friends, vk]
+        return dck
+
 
 
 class check_data_from_bd:
@@ -74,3 +92,17 @@ class add_data_in_bd:
         f1 = open("data/inf_tsk", 'a')
         print(f"{id_user}@{name_user}@1@n@{id_tlg}",file=f1)
         f1.close()
+
+    def add_new_inf(self, dck_task, dck_vk):
+        f_data_bd = open("data/data_bd", 'w')
+        f_inf_tsk = open("data/inf_tsk", 'w')
+
+        for key in dck_task.keys():
+            name, psw, ph, frd, vk = dck_task[key]
+            print(f"{key}@{name}@{psw}@{ph}@{frd}@{vk}", file=f_data_bd)
+        for key2 in dck_vk:
+            id_bd, user, tsk, cond = dck_vk[key2]
+            print(f"{id_bd}@{user}@{tsk}@{cond}@{key2}", file=f_inf_tsk)
+
+        f_inf_tsk.close()
+        f_data_bd.close()
