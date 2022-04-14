@@ -106,3 +106,8 @@ class add_data_in_bd:
 
         f_inf_tsk.close()
         f_data_bd.close()
+
+    def for_admins(self, id_user, name_tlg):
+        f =  open("data/for_admins", 'a')
+        print(f'{id_user}@{name_tlg}', file=f)
+        f.close()

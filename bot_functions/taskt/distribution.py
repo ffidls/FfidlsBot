@@ -32,9 +32,22 @@ def distribution(update, context):
                                   f'назад, то введите "menu"', reply_markup=markup)
         return 1
 
+    if num_task == '3' and condition == 'n':
+        markup = ReplyKeyboardMarkup([['начать', '/menu']], one_time_keyboard=True)
+        update.message.reply_text(f'Перейдем к третьему заданию')
+        update.message.reply_text(tsk_text['3'])
+        update.message.reply_text(f'Здесь проверка будет по другому происходить. Как только вы закончите '
+                                  f'с заданием вам нужно будет отправить название вашего канала, это название прийдет админу, '
+                                  f'который уже сам и будет проверять содержание канала и активность, и именно '
+                                  f'он будет принимать решение на зачет задания')
+        update.message.reply_text(f'Как только вы будете готовы выберите в меню  "начать", если хотите '
+                                  f'назад, то введите "menu"', reply_markup=markup)
+        return 1
+
+
     if condition == 'd':
         markup = ReplyKeyboardMarkup([['завершить', '/menu']], one_time_keyboard=True)
-        update.message.reply_text(f'Если вы завершили работу над первым заданием, нажмите завершить', reply_markup=markup)
+        update.message.reply_text(f'Если вы завершили работу над заданием, нажмите завершить', reply_markup=markup)
         return 1
 
 

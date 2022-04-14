@@ -10,6 +10,7 @@ import bot_functions.adviсe.distribution_of_advice
 import bot_functions.menu_functions_for_admin
 import bot_functions.taskt.distribution
 import bot_functions.taskt.start_task
+import bot_functions.taskt.third_task
 
 
 def check(update, context):
@@ -71,6 +72,7 @@ def main():
         states={
             1: [MessageHandler(Filters.text, bot_functions.taskt.start_task.start_task)],
             2: [MessageHandler(Filters.text, bot_functions.taskt.distribution.distribution)],
+            3: [MessageHandler(Filters.text, bot_functions.taskt.third_task.thr_task)]
         },
         fallbacks=[CommandHandler('menu', bot_functions.menu_functions_for_user.menu)])
     dp.add_handler(task_dialog)
