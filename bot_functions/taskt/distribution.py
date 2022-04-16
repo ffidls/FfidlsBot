@@ -1,4 +1,6 @@
 from telegram import ReplyKeyboardMarkup
+from telegram.ext import ConversationHandler
+
 import data.work_with_data
 
 
@@ -9,6 +11,7 @@ def distribution(update, context):
     dck_user = data_tsk.make_dck_fail()
     num_task, condition, id_bd = dck_user[id_tlg][2], dck_user[id_tlg][3], dck_user[id_tlg][0]
     tsk_text = get_txt_task()
+    check_task = data.work_with_data.check_data_from_bd()
 
 
     if num_task == '1' and condition == 'n':
@@ -49,6 +52,16 @@ def distribution(update, context):
         markup = ReplyKeyboardMarkup([['завершить', '/menu']], one_time_keyboard=True)
         update.message.reply_text(f'Если вы завершили работу над заданием, нажмите завершить', reply_markup=markup)
         return 1
+
+    if condition == 'w':
+        if check_task.check_task_3(id_tlg):
+            markup = ReplyKeyboardMarkup([['/menu']], one_time_keyboard=True)
+            update.message.reply_text(f'Поздравляю, вам зачли ваше задание, на данный момент '
+                                      f'вы смогли решить все задания, я вас поздравляю)', reply_markup=markup)
+            return ConversationHandler.END
+        else:
+            markup = ReplyKeyboardMarkup([['/menu', '/task']], one_time_keyboard=True)
+            update.message.reply_text(f'К сожалению, вам не зачли задание, попробуйте еще раз', reply_markup=markup)
 
 
 def get_txt_task():

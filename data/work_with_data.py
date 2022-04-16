@@ -83,6 +83,14 @@ class check_data_from_bd:
         except Exception:
             return False, None, None
 
+    def check_task_3(self, id_tlg):
+        fail = open("data/for_admins", encoding='UTF-8')
+        for i in fail:
+            id1, cond = i.split('@')[0], i.split('@')[2].replace("\n","")
+            if id1 == id_tlg and cond == 'y':
+                return True
+        return False
+
 
 class add_data_in_bd:
     def __init__(self):
