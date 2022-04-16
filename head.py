@@ -11,6 +11,8 @@ import bot_functions.menu_functions_for_admin
 import bot_functions.taskt.distribution
 import bot_functions.taskt.start_task
 import bot_functions.taskt.third_task
+import bot_functions.admins_funct.read_tack
+import bot_functions.admins_funct.check_task
 
 
 def check(update, context):
@@ -43,6 +45,7 @@ def main():
     dp.add_handler(CommandHandler("start", check))
     dp.add_handler(CommandHandler("menu", bot_functions.menu_functions_for_user.menu))
     dp.add_handler(CommandHandler("menu_admin", bot_functions.menu_functions_for_admin.menu))
+    dp.add_handler(CommandHandler("ch", bot_functions.admins_funct.read_tack.admins_task))
 
 
     # регистрация
@@ -53,6 +56,17 @@ def main():
         },
         fallbacks=[CommandHandler('menu', bot_functions.menu_functions_for_user.menu)])
     dp.add_handler(greetings_dialog)
+
+
+    # проверка заданий для админов
+    check_task = ConversationHandler(
+        entry_points=[CommandHandler('check_task', bot_functions.admins_funct.read_tack.admins_task)],
+        states={
+            1: [MessageHandler(Filters.text, bot_functions.admins_funct.check_task.answer)],
+            0: [MessageHandler(Filters.text, bot_functions.admins_funct.read_tack.admins_task)]
+        },
+        fallbacks=[CommandHandler('menu', bot_functions.menu_functions_for_user.menu)])
+    dp.add_handler(check_task)
 
 
     #advice

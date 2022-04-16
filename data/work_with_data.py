@@ -23,7 +23,6 @@ class work_with_data_take:
         f.close()
         con.close()
 
-
     def make_dck_fail(self):
         # создание словаря из данных tsk
         fail = open("data/inf_tsk", encoding='UTF-8')
@@ -34,7 +33,6 @@ class work_with_data_take:
             dck[id_tlg] = [id_bd, user, numb_tsk, condition]
         return dck
 
-
     def dck_vk_user(self):
         fail = open("data/data_bd", encoding='UTF-8')
         dck = {}
@@ -42,6 +40,14 @@ class work_with_data_take:
             id, name, password, photo, friends, vk = data.split('@')[0], data.split('@')[1], data.split('@')[2], \
                                                data.split('@')[3], data.split('@')[4], data.split('@')[5].replace("\n","")
             dck[id] = [name, password, photo, friends, vk]
+        return dck
+
+    def wait_user(self):
+        f = open("data/for_admins", encoding='UTF-8')
+        dck = {}
+        for data in f:
+            id_tlg, name_k, cond = data.split('@')
+            dck[id_tlg] = [name_k, cond.replace("\n","")]
         return dck
 
 
@@ -109,5 +115,12 @@ class add_data_in_bd:
 
     def for_admins(self, id_user, name_tlg):
         f =  open("data/for_admins", 'a')
-        print(f'{id_user}@{name_tlg}', file=f)
+        print(f'{id_user}@{name_tlg}@w', file=f)
+        f.close()
+
+    def change_cond(self, dck):
+        f = open("data/for_admins", 'w')
+        for i in dck.keys():
+            id_tlg, name, cond = i, dck[i][0], dck[i][1]
+            print(f'{id_tlg}@{name}@{cond}', file=f)
         f.close()
