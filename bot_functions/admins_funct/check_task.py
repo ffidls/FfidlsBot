@@ -17,6 +17,6 @@ def answer(update, context):
             else:
                 wait_users_dck[key][1] = 'n'
         change_data.change_cond(wait_users_dck)
-        update.message.reply_text('Предлагаю пройти дальше', reply_markup=markup)
+    update.message.reply_text('Предлагаю пройти дальше', reply_markup=markup)
 
     return 0

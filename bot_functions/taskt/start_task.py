@@ -38,14 +38,14 @@ def start_task(update, context):
     elif user == 'завершить':
         flag = False
         if num_task == '1':
-            now_friends = int(data_vk[id_bd][4]) + 2  # для 100% прохождение задания
-            if int(now_friends) - int(data_vk[id_bd][4]) == 2:
+            now_friends = int(data_vk[id_bd][3]) + 2  # для 100% прохождение задания
+            if int(now_friends) - int(data_vk[id_bd][3]) == 2:
                 data_vk[id_bd][3] = now_friends
                 flag = True
         if num_task == '2':
-            now_photo = int(data_vk[id_bd][3]) + 2
-            if now_photo - int(data_vk[id_bd][3]) == 2:
-                data_vk[id_bd][3] = now_photo
+            now_photo = int(data_vk[id_bd][2]) + 2
+            if now_photo - int(data_vk[id_bd][2]) == 2:
+                data_vk[id_bd][2] = now_photo
                 flag = True
         if num_task == '3':
             update.message.reply_text('Введите пожалуйста название вашего канала')
@@ -64,8 +64,3 @@ def start_task(update, context):
             update.message.reply_text(f'К сожалению, вы не справились с заданием, попробуйте еще раз',
                                       reply_markup=markup)
             return ConversationHandler.END
-
-
-
-def vk_users(id, ):
-    pass

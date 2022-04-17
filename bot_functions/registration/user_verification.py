@@ -24,5 +24,6 @@ def check(update, context):
             return ConversationHandler.END
         else:
             update.message.reply_text(f'Ох, я не могу вас найти, '
-                                      f'похоже вы что-то ввели не так, попробуйте еще раз')
+                                      f'похоже вы что-то ввели не так, попробуйте еще раз. Если вы еще не зарегестрированны '
+                                      f'то перейдите на сайт http://lifeoftheparty.herokuapp.com/ для создание аккаунта')
             return 1

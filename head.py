@@ -38,6 +38,12 @@ def check(update, context):
             reply_markup=markup)
 
 
+def link_sait(update, context):
+    markup = ReplyKeyboardMarkup([['/menu']], one_time_keyboard=False)
+    update.message.reply_text(
+        "http://lifeoftheparty.herokuapp.com/?", reply_markup=markup)
+
+
 def main():
     updater = Updater('5193691590:AAG8nk7g4wFy2CCzDkmig8bOnPUlrlL1k9k', use_context=True)
     dp = updater.dispatcher
@@ -45,7 +51,7 @@ def main():
     dp.add_handler(CommandHandler("start", check))
     dp.add_handler(CommandHandler("menu", bot_functions.menu_functions_for_user.menu))
     dp.add_handler(CommandHandler("menu_admin", bot_functions.menu_functions_for_admin.menu))
-    dp.add_handler(CommandHandler("ch", bot_functions.admins_funct.read_tack.admins_task))
+    dp.add_handler(CommandHandler("site", link_sait))
 
 
     # регистрация
