@@ -75,7 +75,7 @@ def main():
     dp.add_handler(check_task)
 
 
-    #advice
+    # advice
     advice_dialog = ConversationHandler(
         entry_points=[CommandHandler('advice', bot_functions.adviсe.advice_menu.menu_advice)],
         states={

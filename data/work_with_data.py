@@ -117,7 +117,6 @@ class add_data_in_bd:
         for key2 in dck_task:
             id_bd, user, tsk, cond = dck_task[key2]
             print(f"{id_bd}@{user}@{tsk}@{cond}@{key2}", file=f_inf_tsk)
-
         f_inf_tsk.close()
         f_data_bd.close()
 
