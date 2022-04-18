@@ -14,6 +14,7 @@ import bot_functions.taskt.third_task
 import bot_functions.admins_funct.read_tack
 import bot_functions.admins_funct.check_task
 import bot_functions.reviews.reviews_users
+import bot_functions.reviews.reviews_admins
 
 
 def check(update, context):
@@ -107,6 +108,16 @@ def main():
         },
         fallbacks=[CommandHandler('menu', bot_functions.menu_functions_for_user.menu)])
     dp.add_handler(reviews_dialog)
+
+
+    # reviews_for_admin
+    reviews_for_admin_dialog = ConversationHandler(
+        entry_points=[CommandHandler('read_reviews', bot_functions.reviews.reviews_admins.choice_reviews)],
+        states={
+            1: [MessageHandler(Filters.text, bot_functions.reviews.reviews_admins.read)],
+        },
+        fallbacks=[CommandHandler('menu', bot_functions.menu_functions_for_user.menu)])
+    dp.add_handler(reviews_for_admin_dialog)
 
 
     updater.start_polling()

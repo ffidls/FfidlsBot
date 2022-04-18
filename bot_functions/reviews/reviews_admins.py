@@ -1,4 +1,6 @@
 from telegram import ReplyKeyboardMarkup
+from telegram.ext import ConversationHandler
+
 import data.work_with_data
 
 
@@ -22,5 +24,6 @@ def read(update, context):
 
     add_rev.add_reviews(all_reviews, False)
     update.message.reply_text('На этом пока все')
-    markup = ReplyKeyboardMarkup([['/menu']], one_time_keyboard=False)
+    markup = ReplyKeyboardMarkup([['/menu_admin']], one_time_keyboard=False)
     update.message.reply_text('Предлагаю вернуть в меню', reply_markup=markup)
+    return ConversationHandler.END
