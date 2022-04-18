@@ -50,6 +50,14 @@ class work_with_data_take:
             dck[id_tlg] = [name_k, cond.replace("\n","")]
         return dck
 
+    def take_reviews(self):
+        f = open("data/reviews", encoding='UTF-8')
+        dck = {}
+        for r in f:
+            rev, cond = r.split('@')
+            dck[cond.replace("\n","")] = rev
+        return dck
+
 
 
 class check_data_from_bd:
@@ -121,7 +129,7 @@ class add_data_in_bd:
         f_data_bd.close()
 
     def for_admins(self, id_user, name_tlg):
-        f =  open("data/for_admins", 'a')
+        f = open("data/for_admins", 'a')
         print(f'{id_user}@{name_tlg}@w', file=f)
         f.close()
 
@@ -131,3 +139,14 @@ class add_data_in_bd:
             id_tlg, name, cond = i, dck[i][0], dck[i][1]
             print(f'{id_tlg}@{name}@{cond}', file=f)
         f.close()
+
+    def add_reviews(self, reviews, fl=True):
+        if not fl:
+            f = open("data/reviews", 'w')
+            for i in reviews.keys():
+                print(f'{reviews[i]}@f', file=f)
+            f.close()
+        else:
+            f = open("data/reviews", 'a')
+            print(f'{reviews}@n', file=f)
+            f.close()
