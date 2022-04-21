@@ -46,6 +46,7 @@ class work_with_data_take:
         f = open("data/for_admins", encoding='UTF-8')
         dck = {}
         for data in f:
+            data = data.replace("@@","@")
             id_tlg, name_k, cond = data.split('@')
             dck[id_tlg] = [name_k, cond.replace("\n","")]
         return dck
